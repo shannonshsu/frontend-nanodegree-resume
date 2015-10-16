@@ -4,14 +4,14 @@ var education = {
 		"name": "Williams College",
 		"location": "Williamstown",
 		"majors": "Mathematics",
-		"dates": "June 2015",
+		"dates": 2015,
 		"url": "url here",
 		"courses": "courses here"
 	},
 	{
 		"name": "Arcadia High School",
 		"location": "Arcadia",
-		"dates": "June 2011",
+		"dates": 2011,
 		"url": "ausd.net"
 	}
 	],
@@ -19,10 +19,11 @@ var education = {
 	{
 		"title": "course title",
 		"school": "udacity",
-		"dates": "dates here",
+		"dates": 2015,
 		"url": "url here"
 	}
-	]
+	],
+	display: function() {}
 };
 
 var work = {
@@ -43,7 +44,8 @@ var work = {
 		"dates": "Dates Here",
 		"description": "Description Here"
 	}
-	]
+	],
+	display: function() {}
 };
 
 var projects = {
@@ -60,7 +62,8 @@ var projects = {
 		"description": "Description Here 2",
 		"images": ["URL1", "URL2", "URL3"]
 	}
-	]
+	],
+	display: function() {}
 };
 
 var bio = {
@@ -73,6 +76,29 @@ var bio = {
 		"github": "github.com/shannonshsu",
 		"location": "Arcadia"
 	},
-	"skills": ["skill 1", "skill2", "skill3"]
+	"skills": ["skill 1", "skill2", "skill3"],
+	"biopic": "picurl",
+	display: function() {}
 };
 
+
+var myRole = HTMLheaderRole.replace("%data%", bio.role);
+$("#header").prepend(myRole);
+
+
+var myName = HTMLheaderName.replace("%data%", bio.name);
+$("#header").prepend(myName);
+
+for (var contactMethod in bio.contacts) {
+var myContact = HTMLcontactGeneric.replace("%contact%", contactMethod);
+myContact = myContact.replace("%data%", bio.contacts[contactMethod]); 
+$("#topContacts").append(myContact);
+}
+
+
+
+
+/*
+var formattedLocation = HTMLworkLocation.replace("%data%", work.jobs[job].location);
+$(".work-entry:last").append(formattedLocation);
+*/
