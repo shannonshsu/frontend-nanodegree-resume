@@ -26,6 +26,7 @@ var education = {
 	display: function() {}
 };
 
+
 var work = {
 	"jobs": [
 	{
@@ -95,7 +96,34 @@ myContact = myContact.replace("%data%", bio.contacts[contactMethod]);
 $("#topContacts").append(myContact);
 }
 
+var myPic = HTMLbioPic.replace("%data%", bio.biopic);
+$("#header").append(myPic);
 
+var myWelcomeMessage = HTMLwelcomeMsg.replace("%data%", bio.welcomeMessage);
+$("#header").append(myWelcomeMessage);
+
+/* skills */
+
+	var skillStart = HTMLskillsStart.replace("</ul>", "");
+	var skillEnd = "</ul>";
+$("#header").append(skillStart);
+for (var skill in bio.skills){
+	var mySkill = HTMLskills.replace("%data%", bio.skills[skill]);
+	$("#header").append(mySkill);
+}
+$("#header").append(skillEnd);
+
+
+for (var job in work.jobs) {
+	var jobStart = HTMLworkStart.replace("</div>", "");
+	var jobEmployer = HTMLworkEmployer.replace("%data%", work.jobs[job].employer);
+	var jobTitle = HTMLworkTitle.replace("%data%", work.jobs[job].title);
+	var jobDates = HTMLworkDates.replace("%data%", work.jobs[job].dates);
+	var jobLocation = HTMLworkLocation.replace("%data%", work.jobs[job].location);
+	var jobDescription = HTMLworkDescription.replace("%data%", work.jobs[job].description);
+	var jobEnd = "</div>";
+	$("#workExperience").append(jobStart + jobEmployer + jobTitle + jobDates + jobLocation + jobDescription + jobEnd);
+}
 
 
 /*
