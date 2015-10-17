@@ -30,7 +30,22 @@ var work = {
 		"description": "Description Here"
 	}
 	],
-	display: function() {}
+	display: function() {
+		for (var job in work.jobs) {
+			var jobObjectInArray = work.jobs[job];
+			var jobStart = HTMLworkStart.replace("</div>", "");
+			var jobEnd = "</div>";
+
+			var jobEmployer = HTMLworkEmployer.replace("%data%", jobObjectInArray.employer);
+			var jobTitle = HTMLworkTitle.replace("%data%", jobObjectInArray.title);
+			var jobDates = HTMLworkDates.replace("%data%", jobObjectInArray.dates);
+			var jobLocation = HTMLworkLocation.replace("%data%", jobObjectInArray.location);
+			var jobDescription = HTMLworkDescription.replace("%data%", jobObjectInArray.description);
+
+			$("#workExperience").append(jobStart + jobEmployer + jobTitle + 
+				jobDates + jobLocation + jobDescription + jobEnd);
+		}
+	}
 };
 
 var projects = {
@@ -48,7 +63,29 @@ var projects = {
 		"images": ["http://placehold.it/250x150", "http://placehold.it/250x150", "http://placehold.it/250x150"]
 	}
 	],
-	display: function() {}
+
+	display: function() {
+		for (var singleProject in projects.project) {
+			var projectObjectInArray = projects.project[singleProject];
+			var projectStart = HTMLprojectStart.replace("</div>", "");
+			var projectEnd = "</div>";
+
+			var projectTitle = HTMLprojectTitle.replace("%data%", projectObjectInArray.title);
+			var projectDates = HTMLprojectDates.replace("%data%", projectObjectInArray.dates);
+			var projectDescription = HTMLprojectDescription.replace("%data%", projectObjectInArray.description);
+
+			var projectImages = (function() {
+				var runningString = "";
+				for (var imageURLIndex in projectObjectInArray.images) {
+					runningString += HTMLprojectImage.replace("%data%", projectObjectInArray.images[imageURLIndex]);
+				}
+				return runningString;
+			})();
+
+			$("#projects").append(projectStart + projectTitle + projectDates + 
+				projectDescription + projectImages + projectEnd);
+		}
+	}
 };
 
 var education = {
@@ -113,46 +150,10 @@ for (var skill in bio.skills){
 $("#header").append(skillEnd);
 
 
-/* work experience */
 
-for (var job in work.jobs) {
-	var jobObjectInArray = work.jobs[job];
-	var jobStart = HTMLworkStart.replace("</div>", "");
-	var jobEnd = "</div>";
-
-	var jobEmployer = HTMLworkEmployer.replace("%data%", jobObjectInArray.employer);
-	var jobTitle = HTMLworkTitle.replace("%data%", jobObjectInArray.title);
-	var jobDates = HTMLworkDates.replace("%data%", jobObjectInArray.dates);
-	var jobLocation = HTMLworkLocation.replace("%data%", jobObjectInArray.location);
-	var jobDescription = HTMLworkDescription.replace("%data%", jobObjectInArray.description);
-
-	$("#workExperience").append(jobStart + jobEmployer + jobTitle + 
-		jobDates + jobLocation + jobDescription + jobEnd);
-}
-
-/* projects */
-
-for (var singleProject in projects.project) {
-	var projectObjectInArray = projects.project[singleProject];
-	var projectStart = HTMLprojectStart.replace("</div>", "");
-	var projectEnd = "</div>";
-	
-	var projectTitle = HTMLprojectTitle.replace("%data%", projectObjectInArray.title);
-	var projectDates = HTMLprojectDates.replace("%data%", projectObjectInArray.dates);
-	var projectDescription = HTMLprojectDescription.replace("%data%", projectObjectInArray.description);
-	
-	var projectImages = (function() {
-		var runningString = "";
-		for (var imageURLIndex in projectObjectInArray.images) {
-			runningString += HTMLprojectImage.replace("%data%", projectObjectInArray.images[imageURLIndex]);
-		}
-		return runningString;
-	})();
-
-	$("#projects").append(projectStart + projectTitle + projectDates + 
-		projectDescription + projectImages + projectEnd);
-}
-
+work.display();
+projects.display();
+$('#mapDiv').append(googleMap);
 
 
 
